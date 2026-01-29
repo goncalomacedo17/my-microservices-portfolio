@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "event")
+@Table(name = "venue")
 @Getter
 @Setter
 @AllArgsConstructor

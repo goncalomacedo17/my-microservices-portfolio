@@ -1,11 +1,16 @@
 package com.example.goncalomacedo17.inventoryService.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.example.goncalomacedo17.inventoryService.Domain.Event;
+import com.example.goncalomacedo17.inventoryService.Domain.Venue;
+import com.example.goncalomacedo17.inventoryService.Mapper.EventMapper;
+import com.example.goncalomacedo17.inventoryService.Mapper.VenueMapper;
 import com.example.goncalomacedo17.inventoryService.Model.EventInventoryResponseDto;
+import com.example.goncalomacedo17.inventoryService.Model.VenueInventoryResponseDto;
 import com.example.goncalomacedo17.inventoryService.Repository.EventRepository;
 import com.example.goncalomacedo17.inventoryService.Repository.VenueRepository;
 
@@ -21,11 +26,19 @@ public class InventoryService {
     private final VenueRepository venueRepository;
     
     private final EventMapper eventMapper;
+    private final VenueMapper venueMapper;
     
     public List<EventInventoryResponseDto> getAllEvents() {
         List<Event> events = eventRepository.findAll();
 
         return eventMapper.toDtos(events);
+    }
+
+    public VenueInventoryResponseDto getVenueInformation(Long venueId) {
+        Optional<Venue> venue = venueRepository.findById(venueId);
+
+        if(venue.isPresent()) return venueMapper.toDto(venue.get());
+        else throw new UnsupportedOperationException();
     }
 
 }
