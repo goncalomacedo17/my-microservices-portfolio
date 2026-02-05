@@ -41,4 +41,15 @@ public class InventoryService {
         else throw new UnsupportedOperationException();
     }
 
+    public EventInventoryResponseDto getEventInventory(final Long eventId) {
+        Event event = eventRepository.findById(eventId).orElse(null);
+        return EventInventoryResponseDto.builder()
+                .name(event.getName())
+                .totalCapacity(event.getTotalCapacity())
+                .leftCapacity(event.getLeftCapacity())
+                .venue(event.getVenue())
+                .ticketPrice(event.getTicketPrice())
+                .eventId(event.getId())
+                .build();
+    }
 }
